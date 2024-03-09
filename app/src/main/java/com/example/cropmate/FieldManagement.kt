@@ -15,19 +15,9 @@ import com.example.cropmate.ui.theme.CropMateTheme
 class FieldManagement : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            CropMateTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+        setContentView(R.layout.activity_field_management)
         }
     }
-}
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
