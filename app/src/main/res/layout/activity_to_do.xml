@@ -37,23 +37,14 @@
         android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <EditText
-        android:id="@+id/etAddToDo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_toStartOf="@+id/btnAddEvent"
-        android:hint="Enter Task" />
-
     <Button
         android:id="@+id/btnAddEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="3dp"
-        android:layout_toStartOf="@+id/btnDelDone"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="0dp"
         android:text="Add Task" />
 
     <Button
@@ -62,6 +53,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="0dp"
         android:text="Delete Done" />
 
 </RelativeLayout>
