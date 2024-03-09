@@ -25,31 +25,14 @@ public class FieldManagementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_field_management);
 
-        fieldsLinearLayout = findViewById(R.id.fieldsLinearLayout); // Assume you have a LinearLayout with this ID
+        fieldsLinearLayout = findViewById(R.id.fieldsLinearLayout);
 
         fieldList = new ArrayList<>();
 
         Button addFieldButton = findViewById(R.id.addFieldButton);
-        addFieldButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAddFieldDialog();
-            }
-        });
+        addFieldButton.setOnClickListener(v -> showAddFieldDialog());
 
-        Button removeFieldButton = findViewById(R.id.removeFieldButton);
-        removeFieldButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Remove the last field entry (implement your logic here)
-                if (!fieldList.isEmpty()) {
-                    fieldList.remove(fieldList.size() - 1);
-                    updateFieldViews();
-                }
-            }
-        });
-
-        updateFieldViews(); // Update views initially
+        updateFieldViews();
     }
 
     private void showAddFieldDialog() {
@@ -87,14 +70,20 @@ public class FieldManagementActivity extends AppCompatActivity {
     }
 
     private void updateFieldViews() {
-        fieldsLinearLayout.removeAllViews(); // Clear existing views
+        fieldsLinearLayout.removeAllViews();
 
-        for (Field field : fieldList) {
+        for (int i = 0; i < fieldList.size(); i++) {
+            final int index = i;
             View fieldView = LayoutInflater.from(this).inflate(R.layout.item_field, fieldsLinearLayout, false);
 
             TextView fieldNameTextView = fieldView.findViewById(R.id.fieldNameTextView);
-            // Set other field data...
-            fieldNameTextView.setText(field.getName());
+            fieldNameTextView.setText(fieldList.get(i).getName());
+
+            Button removeButton = fieldView.findViewById(R.id.removeButton);
+            removeButton.setOnClickListener(v -> {
+                fieldList.remove(index);
+                updateFieldViews();
+            });
 
             fieldsLinearLayout.addView(fieldView);
         }

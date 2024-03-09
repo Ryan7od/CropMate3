@@ -14,6 +14,5 @@ public class FieldViewHolder extends RecyclerView.ViewHolder {
     public FieldViewHolder(View itemView) {
         super(itemView);
         fieldNameTextView = itemView.findViewById(R.id.fieldNameTextView);
-        harvestAmountTextView = itemView.findViewById(R.id.harvestAmountTextView);
     }
 }
