@@ -2,7 +2,6 @@ package com.example.cropmate.fieldManagement;
 import com.example.cropmate.R;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -70,9 +69,9 @@ public class FieldManagementActivity extends AppCompatActivity {
         builder.setPositiveButton("Add", (dialog, which) -> {
             String fieldID = editFieldID.getText().toString();
             String name = editName.getText().toString();
-            Double area = Double.parseDouble(editArea.getText().toString());
+            String area = editArea.getText().toString();
             String crop = editCrop.getText().toString();
-            Editable planted = editPlanted.getText();
+            String planted = editPlanted.getText().toString();
             String soilHealth = editSoilHealth.getText().toString();
             String location = editLocation.getText().toString();
 

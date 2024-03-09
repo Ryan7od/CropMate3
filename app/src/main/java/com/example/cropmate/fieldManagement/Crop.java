@@ -3,13 +3,13 @@ package com.example.cropmate.fieldManagement;
 public class Crop {
 
     private String name;
-    private Double averageYield;
-    private Integer growthTime;
+    private String averageYield;
+    private String growthTime;
     private String monthToPlant;
     private String monthToHarvest;
-    private Integer waterFrequency;
+    private String waterFrequency;
 
-    public Crop(String cropName, Double yield, Integer time, String plantMonth, String harvestMonth, Integer water){
+    public Crop(String cropName, String yield, String time, String plantMonth, String harvestMonth, String water){
         if(cropName == null || yield == null || time == null || plantMonth == null || harvestMonth == null || water == null) {
             throw new IllegalArgumentException("Arguments cannot be null");
         }
@@ -32,22 +32,22 @@ public class Crop {
         this.name = name;
     }
 
-    public Double getAverageYield() {
+    public String getAverageYield() {
         return averageYield;
     }
 
-    public void setAverageYield(Double averageYield) {
+    public void setAverageYield(String averageYield) {
         if(averageYield == null) {
             throw new IllegalArgumentException("Average Yield cannot be null");
         }
         this.averageYield = averageYield;
     }
 
-    public Integer getGrowthTime() {
+    public String getGrowthTime() {
         return growthTime;
     }
 
-    public void setGrowthTime(Integer growthTime) {
+    public void setGrowthTime(String growthTime) {
         if(growthTime == null) {
             throw new IllegalArgumentException("Growth Time cannot be null");
         }
@@ -76,11 +76,11 @@ public class Crop {
         this.monthToHarvest = monthToHarvest;
     }
 
-    public Integer getWaterFrequency() {
+    public String getWaterFrequency() {
         return waterFrequency;
     }
 
-    public void setWaterFrequency(Integer waterFrequency) {
+    public void setWaterFrequency(String waterFrequency) {
         if(waterFrequency == null) {
             throw new IllegalArgumentException("Water Frequency cannot be null");
         }
