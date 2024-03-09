@@ -13,8 +13,8 @@
         android:theme="@style/Theme.CropMate"
         tools:targetApi="31">
         <activity
-            android:name=".fieldManagement.FieldManagement"
-            android:exported="false"
+            android:name=".fieldManagement.FieldManagementActivity"
+            android:exported="true"
             android:label="@string/title_activity_field_management"
             android:theme="@style/Theme.CropMate" />
         <activity

@@ -2,6 +2,7 @@ package com.example.cropmate.fieldManagement;
 import com.example.cropmate.R;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -75,6 +76,10 @@ public class FieldManagementActivity extends AppCompatActivity {
         // Add references for other EditText fields
         EditText editName = dialogView.findViewById(R.id.editName);
         EditText editArea = dialogView.findViewById(R.id.editArea);
+        EditText editCrop = dialogView.findViewById(R.id.editCrop);
+        EditText editPlanted = dialogView.findViewById(R.id.editPlanted);
+        EditText editSoilHealth = dialogView.findViewById(R.id.editSoilHealth);
+        EditText editLocation = dialogView.findViewById(R.id.editLocation);
         // Add references for other EditText fields
 
         // Set up the "Add" button in the dialog
@@ -84,7 +89,14 @@ public class FieldManagementActivity extends AppCompatActivity {
             String name = editName.getText().toString();
             // Retrieve values for other parameters
             Double area = Double.parseDouble(editArea.getText().toString());
-            // Crop crop = new Crop(...); // Retrieve values for Crop class attributes
+
+            String crop = editCrop.getText().toString();
+
+            Editable planted = editPlanted.getText();
+
+            String soilHealth = editSoilHealth.getText().toString();
+
+            String location = editLocation.getText().toString();
 
             // Add a new field entry
             fieldList.add(new Field(fieldID, name, area, crop, planted, soilHealth, location));

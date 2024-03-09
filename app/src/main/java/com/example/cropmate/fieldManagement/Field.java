@@ -1,15 +1,18 @@
 package com.example.cropmate.fieldManagement;
+
+import android.text.Editable;
+
 public class Field {
 
     private String fieldID;
     private String name;
     private Double area;
-    private Crop crop;
-    private Boolean planted;
+    private String crop;
+    private Editable planted;
     private String soilHealth;
     private String location;
 
-    public Field(String fieldID, String name, Double area, Crop crop, Boolean planted, String soilHealth, String location){
+    public Field(String fieldID, String name, Double area, String crop, Editable planted, String soilHealth, String location){
         if(fieldID == null || name == null || area == null || crop == null || planted == null || soilHealth == null || location == null) {
             throw new IllegalArgumentException("Arguments cannot be null");
         }
@@ -55,22 +58,22 @@ public class Field {
         this.area = area;
     }
 
-    public Crop getCrop() {
+    public String getCrop() {
         return crop;
     }
 
-    public void setCrop(Crop crop) {
+    public void setCrop(String crop) {
         if(crop == null) {
             throw new IllegalArgumentException("Crop cannot be null");
         }
         this.crop = crop;
     }
 
-    public Boolean getPlanted() {
+    public Editable getPlanted() {
         return planted;
     }
 
-    public void setPlanted(Boolean planted) {
+        public void setPlanted(Editable planted) {
         if(planted == null) {
             throw new IllegalArgumentException("Planted cannot be null");
         }

@@ -10,7 +10,39 @@
         android:layout_height="wrap_content"
         android:hint="Field ID"/>
 
-    <!-- Add EditText fields for other parameters -->
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"/>
+
+    <EditText
+        android:id="@+id/editArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Area"/>
+
+    <EditText
+        android:id="@+id/editCrop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Crop"/>
+    <EditText
+        android:id="@+id/editPlanted"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Planted"/>
+    <EditText
+        android:id="@+id/editSoilHealth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Soil Health"/>
+    <EditText
+        android:id="@+id/editLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Location"/>
+
 
     <Button
         android:id="@+id/confirmButton"
