@@ -1,5 +1,6 @@
 package com.example.cropmate.todo
 
+import android.graphics.Color
 import android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 import android.view.LayoutInflater
 import android.view.View
@@ -37,21 +38,31 @@ class ToDoAdapter(private val list: MutableList<Event>)
 
     fun addTodo(todo: Event) {
         list.add(todo)
+        list.sortBy { it.date }
         notifyItemInserted(list.size - 1)
     }
 
     fun deleteDoneTodos() {
+        list.sortBy { it.date }
         list.removeAll {
             it.done
         }
         notifyDataSetChanged()
     }
 
-    private fun toggleStrikeThrough(cbDone: CheckBox, isChecked: Boolean) {
+    private fun toggleStrikeThrough(tvEventTitle: TextView, isChecked: Boolean) {
         if(isChecked) {
-            cbDone.paintFlags = cbDone.paintFlags or STRIKE_THRU_TEXT_FLAG
+            tvEventTitle.paintFlags = tvEventTitle.paintFlags or STRIKE_THRU_TEXT_FLAG
         } else {
-            cbDone.paintFlags = cbDone.paintFlags and STRIKE_THRU_TEXT_FLAG.inv()
+            tvEventTitle.paintFlags = tvEventTitle.paintFlags and STRIKE_THRU_TEXT_FLAG.inv()
+        }
+    }
+
+    private fun setTextColour(tvEventTitle: TextView, priority: Priority) {
+        when (priority) {
+            Priority.LOW -> { tvEventTitle.setTextColor(Color.parseColor("#FFD300")) }
+            Priority.MEDIUM -> { tvEventTitle.setTextColor(Color.parseColor("#ED7117")) }
+            Priority.HIGH -> { tvEventTitle.setTextColor(Color.parseColor("#800000")) }
         }
     }
 
@@ -64,11 +75,12 @@ class ToDoAdapter(private val list: MutableList<Event>)
         holder.apply {
             tvEventTitle.text = currentToDo.name
             cbDone.isChecked = currentToDo.done
-            toggleStrikeThrough(cbDone, currentToDo.done)
+            toggleStrikeThrough(tvEventTitle, currentToDo.done)
             cbDone.setOnCheckedChangeListener { _, isChecked ->
-                toggleStrikeThrough(cbDone, isChecked)
+                toggleStrikeThrough(tvEventTitle, isChecked)
                 currentToDo.done = isChecked
             }
+            setTextColour(tvEventTitle, currentToDo.priority)
         }
     }
 

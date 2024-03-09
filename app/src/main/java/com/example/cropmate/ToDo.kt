@@ -47,7 +47,6 @@ class ToDo : ComponentActivity() {
         btnBack = findViewById(R.id.btnBack)
         btnAddEvent = findViewById(R.id.btnAddEvent)
         rvToDoList = findViewById(R.id.rvToDoList)
-        etAddToDo = findViewById(R.id.etAddToDo)
         btDelDone = findViewById(R.id.btnDelDone)
         todoAdapter = ToDoAdapter(mutableListOf())
 
@@ -69,8 +68,6 @@ class ToDo : ComponentActivity() {
         }
 
         btnAddEvent.setOnClickListener {
-//            todoAdapter.addTodo(Event(etAddToDo.text.toString()))
-//            etAddToDo.setText("")
             showCustomDialogForm()
         }
 
