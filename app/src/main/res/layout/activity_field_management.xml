@@ -1,45 +1,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
 
-    <!-- Title -->
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Field Management"
-        android:textSize="24sp"
-        android:textAlignment="center"
-        android:layout_marginBottom="16dp"/>
-
-    <!-- Action Buttons -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="16dp">
-
-        <Button
-            android:id="@+id/addFieldButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Add Field"/>
-
-        <Button
-            android:id="@+id/removeFieldButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Remove Field"/>
-    </LinearLayout>
-
-    <!-- RecyclerView for displaying fields -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fieldsRecyclerView"
+        android:id="@+id/fieldsLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <!-- Dynamic fields will be added here -->
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/addFieldButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Field" />
+
+    <Button
+        android:id="@+id/removeFieldButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remove Field" />
 </LinearLayout>
