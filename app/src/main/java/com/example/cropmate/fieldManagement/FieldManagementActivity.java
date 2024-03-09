@@ -72,20 +72,30 @@ public class FieldManagementActivity extends AppCompatActivity {
     private void updateFieldViews() {
         fieldsLinearLayout.removeAllViews();
 
-        for (int i = 0; i < fieldList.size(); i++) {
-            final int index = i;
+        for (Field field : fieldList) {
             View fieldView = LayoutInflater.from(this).inflate(R.layout.item_field, fieldsLinearLayout, false);
 
-            TextView fieldNameTextView = fieldView.findViewById(R.id.fieldNameTextView);
-            fieldNameTextView.setText(fieldList.get(i).getName());
-
-            Button removeButton = fieldView.findViewById(R.id.removeButton);
-            removeButton.setOnClickListener(v -> {
-                fieldList.remove(index);
-                updateFieldViews();
-            });
+            Button fieldDetailsButton = fieldView.findViewById(R.id.fieldDetailsButton);
+            fieldDetailsButton.setText(field.getName());
+            fieldDetailsButton.setOnClickListener(v -> showFieldDetails(field));
 
             fieldsLinearLayout.addView(fieldView);
         }
     }
+
+    private void showFieldDetails(Field field) {
+        // Create and show a dialog or start an activity to display field details
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Field Details");
+        builder.setMessage("Field ID: " + field.getFieldID() +
+                "\nName: " + field.getName() +
+                "\nArea: " + field.getArea() +
+                "\nCrop: " + field.getCrop() +
+                "\nPlanted: " + field.getPlanted() +
+                "\nSoil Health: " + field.getSoilHealth() +
+                "\nLocation: " + field.getLocation());
+        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+        builder.show();
+    }
 }
+

@@ -9,10 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class FieldViewHolder extends RecyclerView.ViewHolder {
     public TextView fieldNameTextView;
-    public TextView harvestAmountTextView;
-
     public FieldViewHolder(View itemView) {
         super(itemView);
-        fieldNameTextView = itemView.findViewById(R.id.fieldNameTextView);
+        fieldNameTextView = itemView.findViewById(R.id.fieldDetailsButton);
     }
 }

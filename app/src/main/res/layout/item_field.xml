@@ -5,13 +5,13 @@
     android:orientation="horizontal"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/fieldNameTextView"
+    <Button
+        android:id="@+id/fieldDetailsButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textSize="18sp"
-        android:text="Field Name"/>
+        android:text="Field Name" />
 
     <Button
         android:id="@+id/removeButton"
