@@ -50,7 +50,7 @@ class ToDoAdapter(private val list: MutableList<Event>)
     override fun onBindViewHolder(holder: ToDoViewHolder, position: Int) {
         val currentToDo = list[position]
         holder.itemView.apply {
-            cbDone.text = currentToDo.name
+            tv.text = currentToDo.name
             cbDone.isChecked = currentToDo.done
             toggleStrikeThrough(cbDone, currentToDo.done)
             cbDone.setOnCheckedChangeListener { _, isChecked ->
