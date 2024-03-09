@@ -5,15 +5,22 @@ import java.util.Date
 enum class Priority {
     LOW,
     MEDIUM,
-    HIGH,
+    HIGH;
+
+    override fun toString(): String {
+        return when (this) {
+            LOW -> "Low"
+            MEDIUM -> "Medium"
+            HIGH -> "High"
+        }
+    }
 }
 
 class Event(
-    private val id: Int,
     val name: String,
-    private val desc: String,
-    private val date: Date,
-    private val priority: Priority,
-    var done: Boolean,
+    val desc: String = "",
+    val date: Date = Date(1),
+    val priority: Priority = Priority.LOW,
+    var done: Boolean = false,
 ) {
 }

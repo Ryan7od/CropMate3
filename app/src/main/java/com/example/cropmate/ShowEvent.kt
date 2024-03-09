@@ -1,6 +1,9 @@
 package com.example.cropmate
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,18 +16,31 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.cropmate.ui.theme.CropMateTheme
 
 class ShowEvent : ComponentActivity() {
+    private lateinit var name: TextView
+    private lateinit var desc: TextView
+    private lateinit var date: TextView
+    private lateinit var prio: TextView
+    private lateinit var button: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            CropMateTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting2("Android")
-                }
-            }
+        setContentView(R.layout.activity_show_event)
+
+        name = findViewById(R.id.tvName)
+        desc = findViewById(R.id.tvDesc)
+        date = findViewById(R.id.tvDate)
+        prio = findViewById(R.id.tvPrio)
+        button = findViewById(R.id.button)
+
+        name.text = intent.getStringExtra("name")
+        desc.text = intent.getStringExtra("desc")
+        date.text = intent.getStringExtra("date")
+        prio.text = intent.getStringExtra("prio")
+
+        button.setOnClickListener {
+            val todoIntent = Intent(this, ToDo::class.java)
+            startActivity(todoIntent)
+            finish()
         }
     }
 }

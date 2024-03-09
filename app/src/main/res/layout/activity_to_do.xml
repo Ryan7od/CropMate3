@@ -35,8 +35,7 @@
         android:layout_above="@+id/btnAddEvent"
         android:layout_alignParentTop="true"
         android:layout_marginTop="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toBottomOf="@+id/btnBack" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/etAddToDo"
