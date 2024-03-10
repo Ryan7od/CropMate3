@@ -88,20 +88,31 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:textSize="16sp"
                     android:text="Your Farm"
-                    android:textColor="@color/secondary_brown"/>
+                    android:textColor="@color/secondary_brown"
+                    android:layout_centerHorizontal="true"/>
 
-            </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/farm"
+                    android:scaleX="4"
+                    android:scaleY="4"
+                    android:layout_centerInParent="true"
+                    app:tint="@color/primary_green" />
+
+            </RelativeLayout>
 
 
 
@@ -117,20 +128,30 @@
             android:layout_marginBottom="16dp"
             app:cardElevation="8dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:textSize="16sp"
                     android:text="To do list"
-                    android:textColor="@color/secondary_brown"/>
+                    android:textColor="@color/secondary_brown"
+                    android:layout_centerHorizontal="true"/>
 
-            </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/tick"
+                    android:scaleX="3.5"
+                    android:scaleY="3.5"
+                    android:layout_centerInParent="true"
+                    app:tint="@color/primary_green" />
+
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/ToDoListButton"
@@ -150,10 +171,9 @@
             android:layout_marginBottom="16dp"
             app:cardElevation="8dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
@@ -161,10 +181,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:text="Inventory"
-                    android:textColor="@color/secondary_brown"/>
+                    android:textSize="16sp"
+                    android:textColor="@color/secondary_brown"
+                    android:layout_centerHorizontal="true"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/clipboard"
+                    android:scaleX="4"
+                    android:scaleY="4"
+                    android:layout_centerInParent="true"
+                    app:tint="@color/primary_green" />
 
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/InventoryButton"
@@ -192,7 +223,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Financial Management"
+                    android:text="Finances"
+                    android:textSize="16sp"
                     android:textColor="@color/secondary_brown"
                     android:layout_centerHorizontal="true"/>
 
@@ -245,6 +277,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:text="Weather"
+                    android:textSize="16sp"
                     android:textColor="@color/secondary_brown"
                     android:layout_centerHorizontal="true" />
 
