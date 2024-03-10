@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="#AFD7A1"
+            app:title="Field Management"
+            app:titleCentered="true"
+            app:titleTextColor="#9A7764"/>
+
+
+    <ImageButton
+        android:id="@+id/homeButton"
+        android:layout_width="50dp"
+        android:layout_height="80dp"
+        android:background="#AFD7A1"
+        android:src="@drawable/ic_home_black_24dp" />
 
     <LinearLayout
         android:id="@+id/fieldsLinearLayout"
@@ -17,5 +35,7 @@
         android:text="Add Field"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
 
-</RelativeLayout>
+
+
