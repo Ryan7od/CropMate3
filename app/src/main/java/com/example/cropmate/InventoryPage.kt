@@ -36,7 +36,6 @@ class InventoryPage : ComponentActivity() {
         homeButton.setOnClickListener {
             val HomePageintent = Intent(this, MainActivity::class.java)
             startActivity(HomePageintent)
-
             finish()
         }
 

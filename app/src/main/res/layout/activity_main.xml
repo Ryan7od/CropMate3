@@ -82,6 +82,12 @@
             android:layout_marginBottom="16dp"
             app:cardElevation="8dp">
 
+            <Button
+                android:id="@+id/YourFarmButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,12 +103,7 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/YourFarmButton"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:shadowColor="@color/background"
-                android:visibility="invisible"/>
+
 
         </androidx.cardview.widget.CardView>
 
@@ -135,8 +136,7 @@
                 android:id="@+id/ToDoListButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:shadowColor="@color/background"
-                android:visibility="invisible"/>
+                android:background="@android:color/transparent"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -170,8 +170,7 @@
                 android:id="@+id/InventoryButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:shadowColor="@color/background"
-                android:visibility="invisible"/>
+                android:background="@android:color/transparent"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -211,8 +210,7 @@
                 android:id="@+id/FinancialManagementButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:shadowColor="@color/background"
-                android:visibility="invisible"/>
+                android:background="@android:color/transparent"/>
 
         </androidx.cardview.widget.CardView>
     </GridLayout>
@@ -259,30 +257,151 @@
                     android:paddingHorizontal="14dp"
                     android:layout_alignParentBottom="true">
 
+                    <!--Date-->
                     <androidx.cardview.widget.CardView
                         android:layout_columnWeight="1"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:padding="5dp">
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="30dp"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        app:cardElevation="0dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="Date:"/>
+                        <TextView
+                            android:id="@+id/Date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:textAlignment="gravity"
+                            android:text="01/01/01"
+                            />
                     </androidx.cardview.widget.CardView>
 
+                    <!--Location-->
                     <androidx.cardview.widget.CardView
                         android:layout_columnWeight="1"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="50dp"
-                        android:padding="5dp">
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="10dp"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        app:cardElevation="0dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="Location:"/>
+                        <TextView
+                            android:id="@+id/Location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:textAlignment="gravity"
+                            android:text="San Francisco"
+                            />
                     </androidx.cardview.widget.CardView>
 
+                    <!--Temp-->
+                    <androidx.cardview.widget.CardView
+                        android:layout_columnWeight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="10dp"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        app:cardElevation="0dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="Temperature:"/>
+                        <TextView
+                            android:id="@+id/Temperature"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:textAlignment="gravity"
+                            android:text="L: 2°C, H: 5°C"
+                            />
+                    </androidx.cardview.widget.CardView>
 
+                    <!--Rainfall-->
+                    <androidx.cardview.widget.CardView
+                        android:layout_columnWeight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="10dp"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        app:cardElevation="0dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="Rainfall:"/>
+                        <TextView
+                            android:id="@+id/Rainfall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:textAlignment="gravity"
+                            android:text="50mm"
+                            />
+                    </androidx.cardview.widget.CardView>
+
+                    <!--Humidity-->
+                    <androidx.cardview.widget.CardView
+                        android:layout_columnWeight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="10dp"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        app:cardElevation="0dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="Humidity:"/>
+                        <TextView
+                            android:id="@+id/Humidity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:textAlignment="gravity"
+                            android:text="2g/kg"
+                            />
+                    </androidx.cardview.widget.CardView>
+
+                    <!--Cloud Cover-->
+                    <androidx.cardview.widget.CardView
+                        android:layout_columnWeight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginBottom="10dp"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        app:cardElevation="0dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="Cloud Cover:"/>
+                        <TextView
+                            android:id="@+id/CloudCover"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:textAlignment="gravity"
+                            android:text="2 Oktas"
+                            />
+                    </androidx.cardview.widget.CardView>
 
                 </GridLayout>
-
-                <Button
-                    android:id="@+id/WeatherButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:shadowColor="@color/background"
-                    android:visibility="invisible"/>
 
             </RelativeLayout>
 
