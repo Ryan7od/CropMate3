@@ -62,9 +62,9 @@ class MainActivity : AppCompatActivity() {
         // SETTINGS
         val settingsButton: ImageButton = findViewById(R.id.SettingsButton)
         settingsButton.setOnClickListener {
-            /*val intent = Intent(this, PAGE::class.java)
+            val intent = Intent(this, SettingsPage::class.java)
             startActivity(intent)
-            finish()*/
+            finish()
             // TODO: Add settings
         }
 
