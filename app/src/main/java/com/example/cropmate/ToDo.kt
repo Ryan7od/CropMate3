@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Spinner
 import androidx.activity.ComponentActivity
@@ -40,7 +41,7 @@ import java.util.Locale
 
 class ToDo : ComponentActivity() {
 
-    private lateinit var btnBack : Button
+    private lateinit var btnBack : ImageButton
     private lateinit var btnAddEvent : Button
     private lateinit var rvToDoList : RecyclerView
     private lateinit var todoAdapter: ToDoAdapter
