@@ -63,13 +63,10 @@ public class FieldManagementActivity extends AppCompatActivity {
 
         // Initialize the home button and set its click listener
         ImageButton homeButton = findViewById(R.id.homeButton);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent homeIntent = new Intent(FieldManagementActivity.this, MainActivity.class);
-                startActivity(homeIntent);
-                finish();
-            }
+        homeButton.setOnClickListener(v -> {
+            Intent homeIntent = new Intent(FieldManagementActivity.this, MainActivity.class);
+            startActivity(homeIntent);
+            finish();
         });
 
         updateFieldViews();
