@@ -1,11 +1,13 @@
 package com.example.cropmate
 
-class ProduceItem(override val Id: String = "",
-                  override val Name: String = "",
-                  override val Quantity: String = "",
-                  override val unit: String = ""
+import kotlin.random.Random
+
+class ProduceItem(override val name: String = "",
+                  override val quantity: String = "",
+                  override val unit: String = "",
 ): Item {
+    override val id: String = Random(System.currentTimeMillis()).nextInt(1000000).toString()
     override fun toString(): String {
-        return "$Name : $Quantity $unit"
+        return "$name : $quantity $unit"
     }
 }

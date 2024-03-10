@@ -1,6 +1,12 @@
 package com.example.cropmate.fieldManagement;
 import com.example.cropmate.MainActivity;
 import com.example.cropmate.R;
+import com.google.firebase.Firebase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,7 +26,7 @@ import java.util.List;
 
 public class FieldManagementActivity extends AppCompatActivity {
 
-    private List<Field> fieldList;
+    private ArrayList<Field> fieldList;
     private LinearLayout fieldsLinearLayout;
 
     @Override
@@ -29,6 +36,28 @@ public class FieldManagementActivity extends AppCompatActivity {
 
         fieldsLinearLayout = findViewById(R.id.fieldsLinearLayout);
         fieldList = new ArrayList<>();
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference("Fields");
+        ValueEventListener valueEventListener2 = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                fieldList.clear();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+
+                    Field data2 = data.getValue(Field.class);
+                    if (data2 != null) {
+                        fieldList.add(data2);
+                    }
+                }
+                updateFieldViews();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        };
+
+        db.addValueEventListener(valueEventListener2);
+
         Button addFieldButton = findViewById(R.id.addFieldButton);
         addFieldButton.setOnClickListener(v -> showAddFieldDialog());
 
@@ -53,7 +82,6 @@ public class FieldManagementActivity extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.dialogue_add_field, null);
         builder.setView(dialogView);
 
-        EditText editFieldID = dialogView.findViewById(R.id.editFieldID);
         EditText editName = dialogView.findViewById(R.id.editName);
         EditText editArea = dialogView.findViewById(R.id.editArea);
         EditText editCrop = dialogView.findViewById(R.id.editCrop);
@@ -62,7 +90,6 @@ public class FieldManagementActivity extends AppCompatActivity {
         EditText editLocation = dialogView.findViewById(R.id.editLocation);
 
         builder.setPositiveButton("Add", (dialog, which) -> {
-            String fieldID = editFieldID.getText().toString();
             String name = editName.getText().toString();
             String area = editArea.getText().toString();
             String crop = editCrop.getText().toString();
@@ -70,8 +97,11 @@ public class FieldManagementActivity extends AppCompatActivity {
             String soilHealth = editSoilHealth.getText().toString();
             String location = editLocation.getText().toString();
 
-            fieldList.add(new Field(fieldID, name, area, crop, planted, soilHealth, location));
-            updateFieldViews();
+            DatabaseReference db = FirebaseDatabase.getInstance().getReference("Fields");
+            Field field = new Field(name, area, crop, planted, soilHealth, location);
+            db.child(field.fieldID).setValue(field);
+//            fieldList.add(field);
+//            updateFieldViews();
         });
 
         builder.setNegativeButton("Cancel", (dialog, which) -> {
@@ -97,6 +127,8 @@ public class FieldManagementActivity extends AppCompatActivity {
 
             Button removeButton = fieldView.findViewById(R.id.removeButton);
             removeButton.setOnClickListener(v -> {
+                DatabaseReference db = FirebaseDatabase.getInstance().getReference("Fields");
+                db.child(field.fieldID).removeValue();
                 fieldList.remove(index);
                 updateFieldViews();
             });
@@ -113,7 +145,6 @@ public class FieldManagementActivity extends AppCompatActivity {
         builder.setView(dialogView);
 
         // Get references to EditText fields in the dialog
-        EditText editFieldID = dialogView.findViewById(R.id.editFieldID);
         EditText editName = dialogView.findViewById(R.id.editName);
         EditText editArea = dialogView.findViewById(R.id.editArea);
         EditText editCrop = dialogView.findViewById(R.id.editCrop);
@@ -122,7 +153,6 @@ public class FieldManagementActivity extends AppCompatActivity {
         EditText editLocation = dialogView.findViewById(R.id.editLocation);
 
         // Prepopulate fields with current values
-        editFieldID.setText(field.getFieldID());
         editName.setText(field.getName());
         editArea.setText(field.getArea());
         editCrop.setText(field.getCrop());
@@ -132,7 +162,6 @@ public class FieldManagementActivity extends AppCompatActivity {
 
         builder.setPositiveButton("Save", (dialog, which) -> {
             // Update field with new values
-            field.setFieldID(editFieldID.getText().toString());
             field.setName(editName.getText().toString());
             field.setArea(editArea.getText().toString());
             field.setCrop(editCrop.getText().toString());
