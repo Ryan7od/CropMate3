@@ -54,7 +54,7 @@ class ToDoAdapter(private val list: MutableList<Event>)
         list.filter {
             it.done
         }.forEach {
-            myRef.child(it.name).removeValue()
+            myRef.child(it.id.toString()).removeValue()
         }
         list.removeAll {
             it.done
