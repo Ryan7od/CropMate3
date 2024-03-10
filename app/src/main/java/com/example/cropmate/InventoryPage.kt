@@ -19,7 +19,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.cropmate.todo.Event
 import com.example.cropmate.ui.theme.CropMateTheme
+import com.google.firebase.Firebase
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.database
 
 class InventoryPage : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +39,38 @@ class InventoryPage : ComponentActivity() {
 
             finish()
         }
+
+        val db = Firebase.database.getReference("CapitalItems")
+        val valueEventListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for(data in dataSnapshot.children) {
+                    val data2 = data.getValue(CapitalItem::class.java)
+                    if (data2 != null) {
+                        addItemToUI(data2)
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+        }
+        db.addValueEventListener(valueEventListener)
+
+        val db2 = Firebase.database.getReference("ProduceItems")
+        val valueEventListener2 = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for(data in dataSnapshot.children) {
+                    val data2 = data.getValue(ProduceItem::class.java)
+                    if (data2 != null) {
+                        addItemToUI(data2)
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+        }
+        db2.addValueEventListener(valueEventListener2)
 
         val addButton: Button = findViewById(R.id.addButton)
         addButton.setOnClickListener {
@@ -58,9 +96,13 @@ class InventoryPage : ComponentActivity() {
         saveButton.setOnClickListener {
             val type = typeEditText.text.toString()
             if (type.lowercase() == "capital") {
-                addItemToUI(CapitalItem(idEditText.text.toString(), nameEditText.text.toString(), QuantityEditText.text.toString(), unitEditText.text.toString()))
+                val item = CapitalItem(idEditText.text.toString(), nameEditText.text.toString(), QuantityEditText.text.toString(), unitEditText.text.toString())
+                val db = Firebase.database.getReference("CapitalItems")
+                db.child(item.Id).setValue(item)
             } else  {
-                addItemToUI(ProduceItem(idEditText.text.toString(), nameEditText.text.toString(), QuantityEditText.text.toString(), unitEditText.text.toString()))
+                val item = ProduceItem(idEditText.text.toString(), nameEditText.text.toString(), QuantityEditText.text.toString(), unitEditText.text.toString())
+                val db = Firebase.database.getReference("ProduceItems")
+                db.child(item.Id).setValue(item)
             }
             dialog.dismiss()
         }
@@ -76,7 +118,7 @@ class InventoryPage : ComponentActivity() {
         val removeButton: Button = view.findViewById(R.id.removeItemButton)
 
 
-        itemNameTextView.text = "${item.Name}"
+        itemNameTextView.text = item.Name
         itemQuantityTextView.text = "${item.Quantity}(${item.unit})"
 
         if (item is CapitalItem) {
