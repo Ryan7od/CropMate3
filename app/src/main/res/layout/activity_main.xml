@@ -1,33 +1,297 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize">
+    android:orientation="vertical"
+    android:padding="0dp"
+    android:background="@color/white">
+
+    <!-- GridLayout for 2x2 Widgets and Weather Widget -->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:backgroundTint="@color/background"
+        />
 
-    <fragment
-        android:id="@+id/nav_host_fragment_activity_main"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <RelativeLayout
+        android:id="@+id/home_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/nav_view"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/mobile_navigation" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/primary_green"
+                android:layout_gravity="center"
+                app:title="CropMate"
+                app:titleCentered="true"
+                app:titleTextColor="@color/secondary_brown"/>
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/SettingsButton"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="@color/primary_green"
+                android:src="@drawable/settings_flower"
+                app:tint="@color/secondary_brown"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                />
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/ProfileButton"
+                android:layout_alignParentEnd= "true"
+                android:layout_centerVertical="true"
+                android:background="@color/primary_green"
+                android:src="@drawable/profile_farmer"
+                app:tint="@color/secondary_brown"
+                android:scaleX="1.3"
+                android:scaleY="1.3"/>
+
+    </RelativeLayout>
+
+    <GridLayout
+        android:id="@+id/grid2x2"
+        android:layout_below="@id/home_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:layout_centerInParent="false"
+        android:paddingHorizontal="14dp"
+        android:paddingTop="30dp">
+
+        <!-- Your farm -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Your Farm"
+                    android:textColor="@color/secondary_brown"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/YourFarmButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:shadowColor="@color/background"
+                android:visibility="invisible"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- To do list -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="To do list"
+                    android:textColor="@color/secondary_brown"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/ToDoListButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:shadowColor="@color/background"
+                android:visibility="invisible"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Inventory -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Inventory"
+                    android:textColor="@color/secondary_brown"/>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/InventoryButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:shadowColor="@color/background"
+                android:visibility="invisible"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Financial Management -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardElevation="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Financial Management"
+                    android:textColor="@color/secondary_brown"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+£21,238.98"
+                    android:textSize="18dp"
+                    android:textColor="@color/primary_green"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/FinancialManagementButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:shadowColor="@color/background"
+                android:visibility="invisible"/>
+
+        </androidx.cardview.widget.CardView>
+    </GridLayout>
+
+    <!-- Weather -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:alignmentMode="alignMargins"
+        android:columnCount="1"
+        android:paddingBottom="14dp"
+        android:paddingHorizontal="14dp"
+        android:layout_below="@id/grid2x2"
+        android:layout_alignParentBottom="true">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardElevation="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Weather"
+                    android:textColor="@color/secondary_brown"
+                    android:layout_centerHorizontal="true" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:alignmentMode="alignMargins"
+                    android:columnCount="3"
+                    android:paddingBottom="14dp"
+                    android:paddingHorizontal="14dp"
+                    android:layout_alignParentBottom="true">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_columnWeight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:padding="5dp">
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_columnWeight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:padding="5dp">
+                    </androidx.cardview.widget.CardView>
+
+
+
+                </GridLayout>
+
+                <Button
+                    android:id="@+id/WeatherButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:shadowColor="@color/background"
+                    android:visibility="invisible"/>
+
+            </RelativeLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+
+
+</RelativeLayout>
+
