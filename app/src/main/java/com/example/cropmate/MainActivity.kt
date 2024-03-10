@@ -1,28 +1,25 @@
 package com.example.cropmate
 
-import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageButton
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.example.cropmate.databinding.ActivityMainBinding
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
+import android.location.Location
+import android.location.LocationRequest
+import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import com.example.cropmate.databinding.ActivityMainBinding
 import com.example.cropmate.fieldManagement.FieldManagementActivity
 import com.example.cropmate.weather.FarmWeather
-import com.example.cropmate.weather.Weather
 import com.example.cropmate.weather.WeatherData
 import com.example.cropmate.weather.WeatherService
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -32,8 +29,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import android.Manifest
-import android.location.Location
+import android.util.Log
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -43,6 +39,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var weatherService: WeatherService
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    private val REQUEST_CODE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,15 +110,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setWeather() {
-        val weather: FarmWeather = FarmWeather(
-            date = Date(1900, 1, 1),
-            location = "NULL",
-            lowTemp = 0,
-            highTemp = 0,
-            rainfall = 0,
-            humidity = 0,
-            cloudCover = 0,
-        ) // getWeather()
+        val weather: FarmWeather =
+            FarmWeather(
+            date = Date(124, 2, 10),
+            location = "London",
+            lowTemp = 7,
+            highTemp = 9,
+            rainfall = 6,
+            humidity = 89,
+            cloudCover = 7,
+        ) // Get weather
 
         val dateText: TextView = findViewById(R.id.Date)
         dateText.text = SimpleDateFormat("dd/MM/yyyy").format(weather.date)
@@ -135,31 +134,65 @@ class MainActivity : AppCompatActivity() {
         rainText.text = "${weather.rainfall}mm"
 
         val humidityText: TextView = findViewById(R.id.Humidity)
-        humidityText.text = "${weather.humidity} g/kg"
+        humidityText.text = "${weather.humidity}%"
 
         val cloudText: TextView = findViewById(R.id.CloudCover)
         cloudText.text = "${weather.cloudCover} Oktas"
     }
 
-    fun getLongLat(): Pair<Double, Double>? {
+    fun getLongLat(): Pair<Double, Double>? = getLongLat(0)
+
+    fun getLongLat(depth: Int): Pair<Double, Double>? {
+        if (depth > 1) return null
+
         var latitude: Double? = null
         var longitude: Double? = null
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED) {
 
-            fusedLocationClient.lastLocation
+            fusedLocationClient.getLastLocation()
                 .addOnSuccessListener { location: Location? ->
                     location?.let {
                         latitude = location.latitude
                         longitude = location.longitude
                     }
                 }
+
+            Log.i("Location Allowed", "Location has been allowed: lat ($latitude), long ($longitude)")
         } else {
-            // TODO: Deal with case
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                REQUEST_CODE
+            )
+
+            Log.i("Fine Location Error","No access to fine location")
+            return getLongLat(depth + 1)
         }
+        if (latitude == null || longitude == null) Log.i("LongLat Null","Long or Lat Null")
         return if (latitude == null || longitude == null) null
         else Pair(latitude!!, longitude!!) // Safe
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                } else {
+                    // Permission Denied
+                    Log.e("Location permission denied", "Location permission denied")
+                }
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
 
     fun getCity(
         lat: Double,
@@ -187,15 +220,15 @@ class MainActivity : AppCompatActivity() {
         return cityName
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     fun getWeather(): FarmWeather {
+        val latLong: Pair<Double, Double>? = getLongLat()
         Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/data/2.5/")
+            .baseUrl("https://api.openweathermap.org/data/3.0/onecall/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(WeatherService::class.java)
 
-
-        val latLong: Pair<Double, Double>? = getLongLat()
 
         if (latLong == null) {
             return FarmWeather(
@@ -209,11 +242,10 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        var weatherData: WeatherData? = null
         GlobalScope.launch(Dispatchers.IO) {
-            val weatherData = weatherService.getWeather(getCity(latLong.first, latLong.second), API_KEY)
+            weatherData = weatherService.getWeather(latLong.first.toString(), latLong.second.toString(), API_KEY)
         }
-
-
         return TODO()
     }
 }
