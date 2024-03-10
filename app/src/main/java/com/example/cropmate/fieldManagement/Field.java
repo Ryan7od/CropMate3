@@ -14,7 +14,7 @@ public class Field {
     private String location;
 
     public Field(String name, String area, String crop, String planted, String soilHealth, String location){
-        if(fieldID == null || name == null || area == null || crop == null || planted == null || soilHealth == null || location == null) {
+        if(name == null || area == null || crop == null || planted == null || soilHealth == null || location == null) {
             throw new IllegalArgumentException("Arguments cannot be null");
         }
         Random rand = new Random(System.currentTimeMillis());
@@ -30,12 +30,12 @@ public class Field {
     public Field() {
         Random rand = new Random(System.currentTimeMillis());
         fieldID = String.valueOf(rand.nextInt(10000000));
-        this.name = "";
-        this.area = "";
-        this.crop = "";
-        this.planted = "";
-        this.soilHealth = "";
-        this.location = "";
+        name = "";
+        area = "";
+        crop = "";
+        planted = "";
+        soilHealth = "";
+        location = "";
     }
 
     public String getFieldID() {
