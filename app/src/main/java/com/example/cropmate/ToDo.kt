@@ -52,16 +52,19 @@ class ToDo : ComponentActivity() {
         btnAddEvent = findViewById(R.id.btnAddEvent)
         rvToDoList = findViewById(R.id.rvToDoList)
 
-        val list: MutableList<Event> = mutableListOf()
+        var list: MutableList<Event> = mutableListOf()
         val db = Firebase.database.getReference("Events")
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                list.clear()
                 for(data in dataSnapshot.children) {
                     val data2 = data.getValue(Event::class.java)
                     if (data2 != null) {
                         list.add(data2)
                     }
                 }
+                rvToDoList.adapter = todoAdapter
+                todoAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -69,6 +72,9 @@ class ToDo : ComponentActivity() {
         }
         db.addValueEventListener(valueEventListener)
         todoAdapter = ToDoAdapter(list)
+        rvToDoList.adapter = todoAdapter
+        rvToDoList.layoutManager = LinearLayoutManager(this@ToDo)
+
 
         todoAdapter.onItemClick = { item ->
             val showIntent = Intent(this, ShowEvent::class.java).also {
@@ -94,11 +100,10 @@ class ToDo : ComponentActivity() {
 
 
 
-        rvToDoList.adapter = todoAdapter
-        rvToDoList.layoutManager = LinearLayoutManager(this)
+
     }
 
-    fun showCustomDialogForm() {
+    private fun showCustomDialogForm() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialogue_add_event, null)
         val name = dialogView.findViewById<EditText>(R.id.name)
         val desc = dialogView.findViewById<EditText>(R.id.desc)
@@ -120,7 +125,6 @@ class ToDo : ComponentActivity() {
             .setPositiveButton("OK") { dialog, which ->
                 priority.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                        // Get selected value
                         val selectedItem = parent.getItemAtPosition(position).toString()
                         when(selectedItem) {
                             "Low" -> prio = Priority.LOW
@@ -133,20 +137,20 @@ class ToDo : ComponentActivity() {
                     }
                 }
                 val year = date.year
-                val month = date.month // Remember, January is 0
+                val month = date.month
                 val day = date.dayOfMonth
 
                 val calendar = Calendar.getInstance()
                 calendar.set(year, month, day)
                 val dateParsed: Date = calendar.time
-                todoAdapter.addTodo(
-                    Event(
-                        name.text.toString(),
-                        desc.text.toString(),
-                        dateParsed,
-                        prio,
-                )
-            )
+                    todoAdapter.addTodo(
+                        Event(
+                            name.text.toString(),
+                            desc.text.toString(),
+                            dateParsed,
+                            prio,
+                        )
+                    )
 
             }
             .setNegativeButton("Cancel") { dialog, which ->

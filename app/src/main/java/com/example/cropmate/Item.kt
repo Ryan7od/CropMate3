@@ -1,11 +1,11 @@
 package com.example.cropmate
 
 interface Item {
-    val Id: String
+    val id: String
 
-    val Name: String
+    val name: String
 
-    val Quantity: String
+    val quantity: String
 
     val unit: String
 

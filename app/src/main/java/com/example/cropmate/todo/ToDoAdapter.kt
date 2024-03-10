@@ -41,26 +41,25 @@ class ToDoAdapter(private val list: MutableList<Event>)
     fun addTodo(todo: Event) {
         val db = Firebase.database
         val myRef = db.getReference("Events")
-        myRef.child(todo.name).setValue(todo)
+        myRef.child(todo.id.toString()).setValue(todo)
         list.add(todo)
         list.sortBy { it.date }
         notifyItemInserted(list.size - 1)
     }
 
     fun deleteDoneTodos() {
+        val db = Firebase.database
+        val myRef = db.getReference("Events")
         list.sortBy { it.date }
+        list.filter {
+            it.done
+        }.forEach {
+            myRef.child(it.name).removeValue()
+        }
         list.removeAll {
             it.done
         }
         notifyDataSetChanged()
-    }
-
-    private fun toggleStrikeThrough(tvEventTitle: TextView, isChecked: Boolean) {
-        if(isChecked) {
-            tvEventTitle.paintFlags = tvEventTitle.paintFlags or STRIKE_THRU_TEXT_FLAG
-        } else {
-            tvEventTitle.paintFlags = tvEventTitle.paintFlags and STRIKE_THRU_TEXT_FLAG.inv()
-        }
     }
 
     private fun setTextColour(tvEventTitle: TextView, priority: Priority) {
@@ -80,9 +79,7 @@ class ToDoAdapter(private val list: MutableList<Event>)
         holder.apply {
             tvEventTitle.text = currentToDo.name
             cbDone.isChecked = currentToDo.done
-            toggleStrikeThrough(tvEventTitle, currentToDo.done)
             cbDone.setOnCheckedChangeListener { _, isChecked ->
-                toggleStrikeThrough(tvEventTitle, isChecked)
                 currentToDo.done = isChecked
             }
             setTextColour(tvEventTitle, currentToDo.priority)

@@ -3,6 +3,7 @@ package com.example.cropmate.todo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.Date
+import kotlin.random.Random
 
 enum class Priority {
     LOW,
@@ -25,4 +26,5 @@ class Event(
     val priority: Priority = Priority.LOW,
 ) {
     var done: Boolean = false
+    val id: Int = Random(System.currentTimeMillis()).nextInt(100000000)
 }
