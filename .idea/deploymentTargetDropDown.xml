@@ -2,19 +2,13 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="app">
-        <State />
-      </entry>
       <entry key="FieldManagementActivity">
-        <State />
-      </entry>
-      <entry key="InventoryPage">
         <State />
       </entry>
       <entry key="MainActivity">
         <State />
       </entry>
-      <entry key="ToDo">
+      <entry key="SettingsPage">
         <State />
       </entry>
     </value>
