@@ -136,14 +136,14 @@ public class FieldManagementActivity extends AppCompatActivity {
     private void showFieldDetails(Field field) {
         // Create and show a dialog or start an activity to display field details
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Field Details");
-        builder.setMessage("Field ID: " + field.getFieldID() +
-                "\nName: " + field.getName() +
-                "\nArea: " + field.getArea() +
-                "\nCrop: " + field.getCrop() +
-                "\nPlanted: " + field.getPlanted() +
-                "\nSoil Health: " + field.getSoilHealth() +
-                "\nLocation: " + field.getLocation());
+        builder.setTitle("Field Details for field: "+ field.getName());
+        builder.setMessage(
+                "\nField ID: " + field.getFieldID() +
+                "\n\n\nArea: " + field.getArea() +
+                "\n\n\nCrop: " + field.getCrop() +
+                "\n\n\nPlanted: " + field.getPlanted() +
+                "\n\n\nSoil Health: " + field.getSoilHealth() +
+                "\n\n\nLocation: " + field.getLocation());
         builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
         builder.show();
     }
