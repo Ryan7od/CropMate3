@@ -1,5 +1,6 @@
 package com.example.cropmate
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -43,6 +44,8 @@ class InventoryPage : ComponentActivity() {
         val db = Firebase.database.getReference("CapitalItems")
         val valueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val capitalInventoryLayout: LinearLayout = findViewById(R.id.capitalInventoryLayout)
+                capitalInventoryLayout.removeAllViews()
                 for(data in dataSnapshot.children) {
                     val data2 = data.getValue(CapitalItem::class.java)
                     if (data2 != null) {
@@ -59,6 +62,8 @@ class InventoryPage : ComponentActivity() {
         val db2 = Firebase.database.getReference("ProduceItems")
         val valueEventListener2 = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val produceInventoryLayout: LinearLayout = findViewById(R.id.produceInventoryLayout)
+                produceInventoryLayout.removeAllViews()
                 for(data in dataSnapshot.children) {
                     val data2 = data.getValue(ProduceItem::class.java)
                     if (data2 != null) {
@@ -91,24 +96,26 @@ class InventoryPage : ComponentActivity() {
         val QuantityEditText: EditText = dialogView.findViewById(R.id.itemQuantityEditText)
         val typeEditText: EditText = dialogView.findViewById(R.id.itemTypeEditText)
         val unitEditText: EditText = dialogView.findViewById(R.id.itemUnitEditText)
-        val idEditText: EditText = dialogView.findViewById(R.id.itemIdEditText)
         val saveButton: Button = dialogView.findViewById(R.id.saveItemButton)
         saveButton.setOnClickListener {
             val type = typeEditText.text.toString()
             if (type.lowercase() == "capital") {
-                val item = CapitalItem(idEditText.text.toString(), nameEditText.text.toString(), QuantityEditText.text.toString(), unitEditText.text.toString())
+                val item = CapitalItem(nameEditText.text.toString(), QuantityEditText.text.toString(), unitEditText.text.toString())
                 val db = Firebase.database.getReference("CapitalItems")
-                db.child(item.Id).setValue(item)
-            } else  {
-                val item = ProduceItem(idEditText.text.toString(), nameEditText.text.toString(), QuantityEditText.text.toString(), unitEditText.text.toString())
+                db.child(item.id).setValue(item)
+            } else if (type.lowercase() == "produce")  {
+                val item = ProduceItem(nameEditText.text.toString(), QuantityEditText.text.toString(), unitEditText.text.toString())
                 val db = Firebase.database.getReference("ProduceItems")
-                db.child(item.Id).setValue(item)
+                db.child(item.id).setValue(item)
+            } else {
+                showAddItemDialogue()
             }
             dialog.dismiss()
         }
         dialog.show()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun addItemToUI(item: Item) {
         val inflator = LayoutInflater.from(this)
         val view = inflator.inflate(R.layout.item_layout, null, false)
@@ -118,19 +125,23 @@ class InventoryPage : ComponentActivity() {
         val removeButton: Button = view.findViewById(R.id.removeItemButton)
 
 
-        itemNameTextView.text = item.Name
-        itemQuantityTextView.text = "${item.Quantity}(${item.unit})"
+        itemNameTextView.text = item.name
+        itemQuantityTextView.text = "${item.quantity}(${item.unit})"
 
         if (item is CapitalItem) {
             val inventoryLayout: LinearLayout = findViewById(R.id.capitalInventoryLayout)
             inventoryLayout.addView(view)
             removeButton.setOnClickListener {
+                val db = Firebase.database.getReference("CapitalItems")
+                db.child(item.id).removeValue()
                 inventoryLayout.removeView(view)
             }
         } else {
             val inventoryLayout: LinearLayout = findViewById(R.id.produceInventoryLayout)
             inventoryLayout.addView(view)
             removeButton.setOnClickListener {
+                val db = Firebase.database.getReference("ProduceItems")
+                db.child(item.id).removeValue()
                 inventoryLayout.removeView(view)
             }
         }

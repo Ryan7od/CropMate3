@@ -1,10 +1,11 @@
 package com.example.cropmate.fieldManagement;
 
 
+import java.util.Random;
 
 public class Field {
 
-    private String fieldID;
+    String fieldID;
     private String name;
     private String area;
     private String crop;
@@ -12,17 +13,29 @@ public class Field {
     private String soilHealth;
     private String location;
 
-    public Field(String fieldID, String name, String area, String crop, String planted, String soilHealth, String location){
+    public Field(String name, String area, String crop, String planted, String soilHealth, String location){
         if(fieldID == null || name == null || area == null || crop == null || planted == null || soilHealth == null || location == null) {
             throw new IllegalArgumentException("Arguments cannot be null");
         }
-        this.fieldID = fieldID;
+        Random rand = new Random(System.currentTimeMillis());
+        fieldID = String.valueOf(rand.nextInt(10000000));
         this.name = name;
         this.area = area;
         this.crop = crop;
         this.planted = planted;
         this.soilHealth = soilHealth;
         this.location = location;
+    }
+
+    public Field() {
+        Random rand = new Random(System.currentTimeMillis());
+        fieldID = String.valueOf(rand.nextInt(10000000));
+        this.name = "";
+        this.area = "";
+        this.crop = "";
+        this.planted = "";
+        this.soilHealth = "";
+        this.location = "";
     }
 
     public String getFieldID() {
