@@ -137,7 +137,7 @@ class ToDo : ComponentActivity() {
             }
         }
         builder.setView(dialogView)
-            .setTitle("Custom Form")
+            .setTitle("Add Task:")
             .setPositiveButton("OK") { dialog, which ->
                 val year = date.year
                 val month = date.month
