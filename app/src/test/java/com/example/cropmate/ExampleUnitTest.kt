@@ -1,11 +1,7 @@
 package com.example.cropmate
 
-import com.example.cropmate.weather.WeatherGetter
 import org.junit.Test
 
-import org.junit.Assert.*
-import org.junit.runner.RunWith
-import android.content.Context
 import org.junit.Assert.assertEquals
 
 /**
