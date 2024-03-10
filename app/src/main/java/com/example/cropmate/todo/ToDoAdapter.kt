@@ -64,8 +64,8 @@ class ToDoAdapter(private val list: MutableList<Event>)
 
     private fun setTextColour(tvEventTitle: TextView, priority: Priority) {
         when (priority) {
-            Priority.LOW -> { tvEventTitle.setTextColor(Color.parseColor("#FFD300")) }
-            Priority.MEDIUM -> { tvEventTitle.setTextColor(Color.parseColor("#ED7117")) }
+            Priority.LOW -> { tvEventTitle.setTextColor(Color.parseColor("#6fc276")) }
+            Priority.MEDIUM -> { tvEventTitle.setTextColor(Color.parseColor("#ffd300")) }
             Priority.HIGH -> { tvEventTitle.setTextColor(Color.parseColor("#800000")) }
         }
     }

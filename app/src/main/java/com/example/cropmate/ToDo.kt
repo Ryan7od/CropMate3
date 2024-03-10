@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
@@ -64,6 +65,7 @@ class ToDo : ComponentActivity() {
                         list.add(data2)
                     }
                 }
+                list.sortBy { it.date }
                 rvToDoList.adapter = todoAdapter
                 todoAdapter.notifyDataSetChanged()
             }
@@ -121,22 +123,22 @@ class ToDo : ComponentActivity() {
 
         val builder = AlertDialog.Builder(this)
         var prio = Priority.LOW
+        priority.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                when(selectedItem) {
+                    "Low" -> prio = Priority.LOW
+                    "Medium" -> prio = Priority.MEDIUM
+                    "High" -> prio = Priority.HIGH
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+            }
+        }
         builder.setView(dialogView)
             .setTitle("Custom Form")
             .setPositiveButton("OK") { dialog, which ->
-                priority.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                        val selectedItem = parent.getItemAtPosition(position).toString()
-                        when(selectedItem) {
-                            "Low" -> prio = Priority.LOW
-                            "Medium" -> prio = Priority.MEDIUM
-                            "High" -> prio = Priority.HIGH
-                        }
-                    }
-
-                    override fun onNothingSelected(parent: AdapterView<*>) {
-                    }
-                }
                 val year = date.year
                 val month = date.month
                 val day = date.dayOfMonth
@@ -144,14 +146,14 @@ class ToDo : ComponentActivity() {
                 val calendar = Calendar.getInstance()
                 calendar.set(year, month, day)
                 val dateParsed: Date = calendar.time
-                    todoAdapter.addTodo(
-                        Event(
-                            name.text.toString(),
-                            desc.text.toString(),
-                            dateParsed,
-                            prio,
-                        )
+                todoAdapter.addTodo(
+                    Event(
+                        name.text.toString(),
+                        desc.text.toString(),
+                        dateParsed,
+                        prio,
                     )
+                )
 
             }
             .setNegativeButton("Cancel") { dialog, which ->
