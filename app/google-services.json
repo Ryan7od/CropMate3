@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "924790081739",
+    "project_id": "cropmate-f881d",
+    "storage_bucket": "cropmate-f881d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924790081739:android:821501deb31b810e40f34e",
+        "android_client_info": {
+          "package_name": "com.example.cropmate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvHAXgPk1F54QnlzQb3nggjgtzbGI1YI8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

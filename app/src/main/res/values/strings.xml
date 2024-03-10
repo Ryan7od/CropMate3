@@ -4,4 +4,11 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_inventory_page">InventoryPage</string>
+    <string name="title_activity_to_do">ToDo</string>
+    <string name="title_activity_show_event">ShowEvent</string>
+    <string-array name="dropdown_items">
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </string-array>
 </resources>
