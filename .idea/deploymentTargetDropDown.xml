@@ -5,6 +5,18 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="FieldManagementActivity">
+        <State />
+      </entry>
+      <entry key="InventoryPage">
+        <State />
+      </entry>
+      <entry key="MainActivity">
+        <State />
+      </entry>
+      <entry key="ToDo">
+        <State />
+      </entry>
     </value>
   </component>
 </project>

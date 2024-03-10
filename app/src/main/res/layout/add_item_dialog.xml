@@ -8,12 +8,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp">
-        <EditText
-            android:id="@+id/itemIdEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="Item Id" />
 
         <EditText
             android:id="@+id/itemNameEditText"
