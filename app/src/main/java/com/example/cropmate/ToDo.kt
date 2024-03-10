@@ -34,6 +34,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -131,11 +132,18 @@ class ToDo : ComponentActivity() {
                     override fun onNothingSelected(parent: AdapterView<*>) {
                     }
                 }
+                val year = date.year
+                val month = date.month // Remember, January is 0
+                val day = date.dayOfMonth
+
+                val calendar = Calendar.getInstance()
+                calendar.set(year, month, day)
+                val dateParsed: Date = calendar.time
                 todoAdapter.addTodo(
                     Event(
                         name.text.toString(),
                         desc.text.toString(),
-                        Date(date.maxDate),
+                        dateParsed,
                         prio,
                 )
             )
