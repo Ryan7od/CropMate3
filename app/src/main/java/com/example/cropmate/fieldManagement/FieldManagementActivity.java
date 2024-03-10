@@ -1,4 +1,5 @@
 package com.example.cropmate.fieldManagement;
+import com.example.cropmate.MainActivity;
 import com.example.cropmate.R;
 import com.google.firebase.Firebase;
 import com.google.firebase.database.DataSnapshot;
@@ -7,11 +8,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -57,8 +60,21 @@ public class FieldManagementActivity extends AppCompatActivity {
 
         Button addFieldButton = findViewById(R.id.addFieldButton);
         addFieldButton.setOnClickListener(v -> showAddFieldDialog());
+
+        // Initialize the home button and set its click listener
+        ImageButton homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent homeIntent = new Intent(FieldManagementActivity.this, MainActivity.class);
+                startActivity(homeIntent);
+                finish();
+            }
+        });
+
         updateFieldViews();
     }
+
 
     private void showAddFieldDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -174,6 +190,9 @@ public class FieldManagementActivity extends AppCompatActivity {
                 "\n\n\nLocation: " + field.getLocation());
         builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
         builder.show();
+
+
+        };
     }
-}
+
 

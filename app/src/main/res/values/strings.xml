@@ -7,6 +7,7 @@
     <string name="title_activity_inventory_page">InventoryPage</string>
     <string name="title_activity_to_do">ToDo</string>
     <string name="title_activity_show_event">ShowEvent</string>
+    <string name="title_activity_settings_page">Settings</string>
     <string-array name="dropdown_items">
         <item>Low</item>
         <item>Medium</item>
