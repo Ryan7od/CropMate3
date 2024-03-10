@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="#AFD7A1"
+            app:title="CropMate"
+            app:titleCentered="true"
+            app:titleTextColor="#9A7764"/>
+
+        <ImageButton
+            android:id="@+id/homeButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#AFD7A1"
+            android:src="@drawable/ic_home_black_24dp"
+            android:layout_centerVertical="true"/>
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="648dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="83dp"
+        android:background="#F5F5F4"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="2dp">
+
+        <!-- Title -->
+
+        <!-- Button to return to home -->
+
+        <!-- Section for Produce Inventory -->
+
+
+        <!-- Replace this with a RecyclerView if you use a list -->
+
+        <!-- Section for Capital Inventory -->
+
+        <LinearLayout
+            android:id="@+id/produceInventoryLayout"
+            android:layout_width="370dp"
+            android:layout_height="215dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Produce Inventory"
+                android:textAlignment="center"
+                android:textColor="#9A7764"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Replace this with a RecyclerView if you use a list -->
+        <LinearLayout
+            android:id="@+id/capitalInventoryLayout"
+            android:layout_width="371dp"
+            android:layout_height="215dp"
+            android:layout_weight="1"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Capital Inventory"
+                android:textAlignment="center"
+                android:textColor="#9A7764"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/addButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#AFD7A1"
+                android:text="Add" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
