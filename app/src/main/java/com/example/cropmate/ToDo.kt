@@ -28,6 +28,11 @@ import com.example.cropmate.todo.Event
 import com.example.cropmate.todo.Priority
 import com.example.cropmate.todo.ToDoAdapter
 import com.example.cropmate.ui.theme.CropMateTheme
+import com.google.firebase.Firebase
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.database
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -38,8 +43,6 @@ class ToDo : ComponentActivity() {
     private lateinit var btnAddEvent : Button
     private lateinit var rvToDoList : RecyclerView
     private lateinit var todoAdapter: ToDoAdapter
-    private lateinit var etAddToDo: EditText
-    private lateinit var btDelDone: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +50,24 @@ class ToDo : ComponentActivity() {
         btnBack = findViewById(R.id.btnBack)
         btnAddEvent = findViewById(R.id.btnAddEvent)
         rvToDoList = findViewById(R.id.rvToDoList)
-        btDelDone = findViewById(R.id.btnDelDone)
-        todoAdapter = ToDoAdapter(mutableListOf())
+
+        val list: MutableList<Event> = mutableListOf()
+        val db = Firebase.database.getReference("Events")
+        val valueEventListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for(data in dataSnapshot.children) {
+                    val data2 = data.getValue(Event::class.java)
+                    if (data2 != null) {
+                        list.add(data2)
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+        }
+        db.addValueEventListener(valueEventListener)
+        todoAdapter = ToDoAdapter(list)
 
         todoAdapter.onItemClick = { item ->
             val showIntent = Intent(this, ShowEvent::class.java).also {
@@ -62,18 +81,15 @@ class ToDo : ComponentActivity() {
 
 
         btnBack.setOnClickListener {
+            todoAdapter.deleteDoneTodos()
             val homePageIntent = Intent(this, MainActivity::class.java)
             startActivity(homePageIntent)
-            finish()
         }
 
         btnAddEvent.setOnClickListener {
             showCustomDialogForm()
         }
 
-        btDelDone.setOnClickListener {
-            todoAdapter.deleteDoneTodos()
-        }
 
 
 
@@ -82,7 +98,6 @@ class ToDo : ComponentActivity() {
     }
 
     fun showCustomDialogForm() {
-        // Inflate the custom layout
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialogue_add_event, null)
         val name = dialogView.findViewById<EditText>(R.id.name)
         val desc = dialogView.findViewById<EditText>(R.id.desc)
@@ -93,13 +108,10 @@ class ToDo : ComponentActivity() {
             R.array.dropdown_items,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
             priority.adapter = adapter
         }
 
-        // Build the dialog
         val builder = AlertDialog.Builder(this)
         var prio = Priority.LOW
         builder.setView(dialogView)

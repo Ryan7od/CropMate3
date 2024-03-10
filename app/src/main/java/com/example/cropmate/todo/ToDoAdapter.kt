@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cropmate.R
 import android.view.*
 import android.widget.TextView
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
 
 class ToDoAdapter(private val list: MutableList<Event>)
     : RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
@@ -37,6 +39,9 @@ class ToDoAdapter(private val list: MutableList<Event>)
     }
 
     fun addTodo(todo: Event) {
+        val db = Firebase.database
+        val myRef = db.getReference("Events")
+        myRef.child(todo.name).setValue(todo)
         list.add(todo)
         list.sortBy { it.date }
         notifyItemInserted(list.size - 1)
